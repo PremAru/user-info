@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity">
+    tools:context=".UserInfoAlbumActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -10,28 +10,28 @@
         android:background="@color/white">
 
         <TextView
-            android:id="@+id/userInfoTextView"
+            android:id="@+id/albumIdTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="sans-serif-black"
-            android:text="User Info"
+            android:text="Album ID: "
             android:textColor="@color/black"
-            android:textSize="25dp"
-            android:textStyle="bold"
+            android:textSize="20dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/reposListRecyclerView"
+            android:id="@+id/albumRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:paddingBottom="20dp"
             android:layout_marginTop="10dp"
             app:layoutManager="LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userInfoTextView"
+            app:layout_constraintTop_toBottomOf="@+id/albumIdTextView"
             app:layout_constrainedHeight="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

@@ -1,5 +1,6 @@
 package com.optus.employee.userinfolist
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -10,6 +11,8 @@ import com.optus.employee.R
 import com.optus.employee.UserInfoApplication
 import com.optus.employee.databinding.ActivityMainBinding
 import com.optus.employee.model.UserInfo
+import com.optus.employee.userinfo.UserInfoActivity
+import com.optus.employee.utils.Constants
 import com.optus.employee.utils.Status
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -26,7 +29,7 @@ class UserInfoListActivity : AppCompatActivity() {
     private lateinit var viewModel: UserInfoListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as UserInfoApplication).appComponent.repositoriesListComponent().create()
+        (application as UserInfoApplication).appComponent.userInfoListComponent().create()
             .inject(this)
 
         super.onCreate(savedInstanceState)
@@ -65,9 +68,12 @@ class UserInfoListActivity : AppCompatActivity() {
         reposListRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = userInfoAdapter
-            userInfoAdapter.setClickListener(object : UserInfoClickListener {
+            userInfoAdapter.setClickListener(object: UserInfoClickListener {
                 override fun userInfoClicked(userInfo: UserInfo) {
-                    TODO("Implement listener")
+                    val intent = Intent(this@UserInfoListActivity,
+                        UserInfoActivity::class.java)
+                    intent.putExtra(Constants.SELECTED_USERS, userInfo)
+                    startActivity(intent)
                 }
             });
         }

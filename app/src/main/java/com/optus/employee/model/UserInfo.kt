@@ -1,6 +1,7 @@
 package com.optus.employee.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class UserInfo (
     @SerializedName("id")
@@ -14,4 +15,4 @@ data class UserInfo (
 
     @SerializedName("email")
     var email: String
-)
+): Serializable

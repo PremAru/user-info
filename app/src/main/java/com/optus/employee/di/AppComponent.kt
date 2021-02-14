@@ -2,6 +2,7 @@ package com.optus.employee.di
 
 import android.content.Context
 import com.optus.employee.interceptor.ForceCacheInterceptor
+import com.optus.employee.userinfo.UserInfoComponent
 import com.optus.employee.userinfolist.UserInfoListComponent
 import dagger.BindsInstance
 import dagger.Component
@@ -17,7 +18,9 @@ interface AppComponent {
         fun create(@BindsInstance context: Context): AppComponent
     }
 
-    fun repositoriesListComponent() : UserInfoListComponent.Factory
+    fun userInfoListComponent() : UserInfoListComponent.Factory
+
+    fun userInfoComponent() : UserInfoComponent.Factory
 
     fun forceCacheInterceptor() : ForceCacheInterceptor
 }
