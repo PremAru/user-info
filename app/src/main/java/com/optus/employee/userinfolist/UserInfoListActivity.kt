@@ -2,6 +2,8 @@ package com.optus.employee.userinfolist
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -38,6 +40,9 @@ class UserInfoListActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this, viewModelProviderFactory)
             .get(UserInfoListViewModel::class.java)
+
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true);
+
         setRecyclerView()
         viewModel.getUsers().observe(this, Observer {
             when (it.status) {
@@ -50,12 +55,23 @@ class UserInfoListActivity : AppCompatActivity() {
                 }
                 Status.ERROR -> {
                     progressBar.hide()
+                    displayError(it.message.toString())
                     // Alert view implementaion
                 }
             }
         })
 
         getUserInfoList();
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+
+        if (id == android.R.id.home) {
+            finish()
+            return true;
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun getUserInfoList() {
@@ -68,16 +84,26 @@ class UserInfoListActivity : AppCompatActivity() {
         reposListRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = userInfoAdapter
-            userInfoAdapter.setClickListener(object: UserInfoListClickListener {
+            userInfoAdapter.setClickListener(object : UserInfoListClickListener {
                 override fun userInfoListClicked(userInfo: UserInfo) {
-                    val intent = Intent(this@UserInfoListActivity,
-                        UserInfoActivity::class.java)
+                    val intent = Intent(
+                        this@UserInfoListActivity,
+                        UserInfoActivity::class.java
+                    )
                     intent.putExtra(Constants.SELECTED_USERS, userInfo)
                     startActivity(intent)
                 }
             });
         }
 
+    }
+
+    private fun displayError(errorMessage: String) {
+        var alertBuilder = AlertDialog.Builder(this)
+        alertBuilder.setTitle(getString(R.string.error_title))
+        alertBuilder.setMessage(errorMessage)
+        alertBuilder.setPositiveButton(getString(R.string.ok_button), null)
+        alertBuilder.show()
     }
 
 }

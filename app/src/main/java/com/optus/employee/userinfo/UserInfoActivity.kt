@@ -2,6 +2,8 @@ package com.optus.employee.userinfo
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -37,6 +39,8 @@ class UserInfoActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, viewModelProviderFactory)
             .get(UserInfoViewModel::class.java)
 
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true);
+
         val userInfo = intent.getSerializableExtra(Constants.SELECTED_USERS) as UserInfo
         albumIdTextView.text = resources.getString(R.string.albumId) + " " + userInfo.id
         setRecyclerView()
@@ -54,6 +58,7 @@ class UserInfoActivity : AppCompatActivity() {
                 }
                 Status.ERROR -> {
                     progressBar.hide()
+                    displayError(it.message.toString())
                     // Alert view implementaion
                 }
             }
@@ -62,6 +67,15 @@ class UserInfoActivity : AppCompatActivity() {
         getUserDetail(userInfo.id);
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+
+        if (id == android.R.id.home) {
+            finish()
+            return true;
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
     private fun getUserDetail(userId: Int) {
         viewModel.fetchUserDetail(userId);
@@ -80,7 +94,13 @@ class UserInfoActivity : AppCompatActivity() {
                 }
             });
         }
+    }
 
-
+    private fun displayError(errorMessage: String) {
+        var alertBuilder = AlertDialog.Builder(this)
+        alertBuilder.setTitle(getString(R.string.error_title))
+        alertBuilder.setMessage(errorMessage)
+        alertBuilder.setPositiveButton(getString(R.string.ok_button), null)
+        alertBuilder.show()
     }
 }

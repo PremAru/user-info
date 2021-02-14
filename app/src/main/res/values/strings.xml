@@ -5,4 +5,7 @@
     <string name="phone">Phone: </string>
     <string name="id">ID:</string>
     <string name="albumId">Album ID: </string>
+    <string name="error_title">Error</string>
+    <string name="ok_button">Ok</string>
+    <string name="photo_id">Photo ID:</string>
 </resources>

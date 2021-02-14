@@ -14,16 +14,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UserInfo">
-        <activity android:name=".userinfolist.UserInfoListActivity">
+        <activity android:name=".userinfolist.UserInfoListActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".userinfo.UserInfoActivity">
+        <activity android:name=".userinfo.UserInfoActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".userdetail.UserDetailActivity">
+        <activity android:name=".userdetail.UserDetailActivity"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

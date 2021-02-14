@@ -42,4 +42,6 @@ class UserInfoListViewModel @Inject constructor(private val userInfoService: Use
     fun getUsers(): LiveData<Resource<List<UserInfo>>> {
         return users;
     }
+
+
 }

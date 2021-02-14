@@ -1,6 +1,7 @@
 package com.optus.employee.userdetail
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.optus.employee.R
 import com.optus.employee.model.UserDetail
@@ -14,7 +15,7 @@ class UserDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_detail)
-
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true);
         val userPhoto = intent.getSerializableExtra(SELECTED_USER_PHOTO) as UserDetail
 
         if (userPhoto != null) {
@@ -22,10 +23,19 @@ class UserDetailActivity : AppCompatActivity() {
                 .placeholder(R.drawable.loading_image)
                 .into(phothoImageView)
             photoTitleTextView.text = userPhoto.title
-            albumTextView.text = "Album ID: " + userPhoto.id
-            photoTextView.text = "Photo ID: " + userPhoto.albumId.toString()
+            albumTextView.text = resources.getString(R.string.albumId) + " "+ userPhoto.id
+            photoTextView.text = resources.getString(R.string.photo_id) + " " + userPhoto.albumId.toString()
         }
 
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+
+        if (id == android.R.id.home) {
+            finish()
+            return true;
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }

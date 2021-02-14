@@ -11,12 +11,10 @@ class ForceCacheInterceptor @Inject constructor(context: Context): Interceptor {
     val application = context
 
     override fun intercept(chain: Interceptor.Chain): Response {
-
         var builder = chain.request().newBuilder()
         if (!NetworkUtils.internetAvailable(application)){
             builder.cacheControl(CacheControl.FORCE_CACHE)
         }
-
         return chain.proceed(builder.build())
     }
 }
