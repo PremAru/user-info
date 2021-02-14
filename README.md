@@ -3,7 +3,11 @@
 An app that will display user info of employees
 
 # User Info Screen:
+![alt text](https://github.com/PremAru/user-info/blob/main/images/image1.png)
 
+![alt text](https://github.com/PremAru/user-info/blob/main/images/image2.png)
+
+![alt text](https://github.com/PremAru/user-info/blob/main/images/image3.png)
 
 
 
