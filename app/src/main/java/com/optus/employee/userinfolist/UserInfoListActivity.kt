@@ -68,8 +68,8 @@ class UserInfoListActivity : AppCompatActivity() {
         reposListRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = userInfoAdapter
-            userInfoAdapter.setClickListener(object: UserInfoClickListener {
-                override fun userInfoClicked(userInfo: UserInfo) {
+            userInfoAdapter.setClickListener(object: UserInfoListClickListener {
+                override fun userInfoListClicked(userInfo: UserInfo) {
                     val intent = Intent(this@UserInfoListActivity,
                         UserInfoActivity::class.java)
                     intent.putExtra(Constants.SELECTED_USERS, userInfo)

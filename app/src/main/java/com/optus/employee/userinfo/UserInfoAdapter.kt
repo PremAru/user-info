@@ -34,6 +34,7 @@ class UserInfoAdapter @Inject constructor () : RecyclerView.Adapter<UserInfoAdap
         fun bindFilter(userDetail: UserDetail) {
             itemView.albumTextView.text = userDetail.title
             Picasso.get().load(userDetail.thumbnailUrl)
+                .placeholder(R.drawable.loading_image)
                 .into(itemView.albumImageView)
             itemView.albumConstraintLayout.setOnClickListener {
                 val userPhoto = userInfoList[adapterPosition]
@@ -42,9 +43,9 @@ class UserInfoAdapter @Inject constructor () : RecyclerView.Adapter<UserInfoAdap
         }
     }
 
-    fun setUserInfoPhotos(userInfosListData: List<UserDetail>) {
+    fun setUserInfoPhotos(userDetailList: List<UserDetail>) {
         val beforeSize = userInfoList.size
-        userInfoList.addAll(userInfosListData)
+        userInfoList.addAll(userDetailList)
         notifyItemRangeInserted(beforeSize, userInfoList.size)
     }
 

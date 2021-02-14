@@ -7,5 +7,7 @@ object Constants {
     const val BASEURL = "https://jsonplaceholder.typicode.com/"
 
     const val SELECTED_USERS = "users"
+    const val SELECTED_USER_PHOTO = "photos"
+
 
 }

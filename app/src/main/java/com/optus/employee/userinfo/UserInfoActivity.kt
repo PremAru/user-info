@@ -1,5 +1,6 @@
 package com.optus.employee.userinfo
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -9,7 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.optus.employee.R
 import com.optus.employee.UserInfoApplication
 import com.optus.employee.databinding.ActivityUserBinding
+import com.optus.employee.model.UserDetail
 import com.optus.employee.model.UserInfo
+import com.optus.employee.userdetail.UserDetailActivity
 import com.optus.employee.utils.Constants
 import com.optus.employee.utils.Status
 import kotlinx.android.synthetic.main.activity_user.*
@@ -24,7 +27,7 @@ class UserInfoActivity : AppCompatActivity() {
     internal lateinit var viewModelProviderFactory: ViewModelProvider.Factory
 
     @Inject
-    internal lateinit var userInfoAlbumAdapter: UserInfoAdapter
+    internal lateinit var userInfoAdapter: UserInfoAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as UserInfoApplication).appComponent.userInfoComponent().create().inject(this)
@@ -43,7 +46,7 @@ class UserInfoActivity : AppCompatActivity() {
                 Status.SUCCESS -> {
                     progressBar.hide()
                     it.data?.let { phothoList ->
-                        userInfoAlbumAdapter.setUserInfoPhotos(phothoList)
+                        userInfoAdapter.setUserInfoPhotos(phothoList)
                     }
                 }
                 Status.LOADING -> {
@@ -67,7 +70,15 @@ class UserInfoActivity : AppCompatActivity() {
     private fun setRecyclerView() {
         albumRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = userInfoAlbumAdapter
+            adapter = userInfoAdapter
+            userInfoAdapter.setClickListener(object: UserInfoClickListener {
+                override fun userInfoClicked(userDetail: UserDetail) {
+                    val intent = Intent(this@UserInfoActivity,
+                        UserDetailActivity::class.java)
+                    intent.putExtra(Constants.SELECTED_USER_PHOTO, userDetail)
+                    startActivity(intent)
+                }
+            });
         }
 
 

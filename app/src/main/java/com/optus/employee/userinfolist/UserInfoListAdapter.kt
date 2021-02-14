@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 class UserInfoAdapter @Inject constructor () : RecyclerView.Adapter<UserInfoAdapter.RepositoryViewHolder>() {
     private var userInfoList: MutableList<UserInfo> = mutableListOf()
-    var userInfoClickListener: UserInfoClickListener? = null
+    var userInfoListClickListener: UserInfoListClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepositoryViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
@@ -42,7 +42,7 @@ class UserInfoAdapter @Inject constructor () : RecyclerView.Adapter<UserInfoAdap
 
             itemView.adapterConstraintLayout.setOnClickListener {
                 val userInfo = userInfoList[adapterPosition]
-                userInfoClickListener?.userInfoClicked(userInfo)
+                userInfoListClickListener?.userInfoListClicked(userInfo)
             }
 
         }
@@ -55,7 +55,7 @@ class UserInfoAdapter @Inject constructor () : RecyclerView.Adapter<UserInfoAdap
         notifyItemRangeInserted(beforeSize, userInfoList.size)
     }
 
-    fun setClickListener(listener: UserInfoClickListener){
-        userInfoClickListener = listener;
+    fun setClickListener(listener: UserInfoListClickListener){
+        userInfoListClickListener = listener;
     }
 }
